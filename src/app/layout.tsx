@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "Nextjs Playground [codewitgabi]",
     description:
       "While learning nextjs can become quite simple and basic for a developer with experience with react, there is a proper way to do things the nextjs way. That is what this project is all about.",
-    url: "http://localhost:3000",
+    url: "https://next-playground-red.vercel.app",
     type: "website",
     siteName: "Nextjs Playground by codewitgabi",
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "nextjs walk through",
   ],
   creator: "Gabriel Michael Ojomakpene aka codewitgabi",
-  metadataBase: new URL("http://localhost:3000"),
+  metadataBase: new URL("https://next-playground-red.vercel.app"),
   alternates: {
     canonical: "/",
     languages: {

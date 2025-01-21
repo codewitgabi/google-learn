@@ -26,17 +26,17 @@ export async function generateMetadata({
     description: `${user.name} profile. ${user.company.name}`,
     openGraph: {
       type: "profile",
-      url: `http://localhost:3000${id}`,
+      url: `https://next-playground-red.vercel.app/users/${id}`,
       title: `${user.name} @${user.username}`,
       description: user.company.catchPhrase,
-      // images: [
-      //   {
-      //     url: user.avatar,
-      //     width: 1200,
-      //     height: 630,
-      //   },
-      // ],
-      siteName: "CodeBlueCross",
+      images: [
+        {
+          url: "https://avatars.githubusercontent.com/u/99000002?v=4",
+          width: 1200,
+          height: 630,
+        },
+      ],
+      siteName: "Nextjs playground",
     },
     keywords: [user.name, user.username, user.company.catchPhrase],
   };
