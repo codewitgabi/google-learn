@@ -6,8 +6,8 @@ import TrafficSpeedImage from "../../public/traffic-speed.png";
 import CongestionLevelImage from "../../public/congestion-level.png";
 import LiveTrafficImage from "../../public/road-traffic.jpg";
 import Image from "next/image";
-import LatestUpdate from "./_components/LatestUpdate";
-import NearestEmergencyLocation from "./_components/NearestEmergencyLocation";
+import LatestUpdate from "@/components/LatestUpdate";
+import NearestEmergencyLocation from "@/components/NearestEmergencyLocation";
 
 function Home() {
   return (

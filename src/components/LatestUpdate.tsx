@@ -1,5 +1,5 @@
 import Image from "next/image";
-import LatestUpdateImage from "../../../public/road-closed-diversion.png";
+import LatestUpdateImage from "/public/road-closed-diversion.png";
 import FixedTitle from "@/components/FixedTitle";
 
 function LatestUpdate() {
