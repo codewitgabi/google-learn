@@ -9,15 +9,11 @@ function Sidebar() {
 
   return (
     <aside
-      className={`left-0 bg-sky-blue p-8 fixed top-0 h-dvh overflow-auto text-center z-20 transition-all duration-300 flex justify-center ${
-        navState === "closed" ? "w-[50px]" : "w-[250px] items-center"
+      className={`left-0 bg-sky-blue p-8 fixed top-0 h-dvh overflow-y-auto text-center z-20 flex justify-center ${
+        navState === "closed" ? "w-max max-md:hidden" : "w-[250px] items-center"
       }`}
     >
-      <div
-        className={`w-full ${
-          navState === "closed" ? "hidden" : ""
-        }`}
-      >
+      <div className={`w-full ${navState === "closed" ? "hidden" : ""}`}>
         <h4 className="text-blue-dark text-[0.8rem]">Welcome to</h4>
         <h3 className="text-blue-dark text-2xl font-medium">Traffic Tracker</h3>
         <p className="text-[0.7rem] opacity-65">Stay ahead of time now!</p>
@@ -25,7 +21,7 @@ function Sidebar() {
         <div className="flex flex-col gap-2 mt-12">
           <Link
             href="/auth/register"
-            className="text-[0.75rem] bg-blue-dark text-white py-2 px-6 rounded-md"
+            className="text-[0.75rem] bg-blue-dark hover:bg-opacity-85 transition-all duration-300 text-white py-2 px-6 rounded-md"
           >
             Register
           </Link>

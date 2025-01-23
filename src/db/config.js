@@ -1,17 +1,3 @@
-#### Connecting to MongoDB via mongoose
----
-
-1. First install mongoose
-
-```shell
-npm i mongoose
-```
-
-2. Copy this into your `db/config.js` file or anything you wish to call it.
-
-```javascript
-// db/config.js
-
 import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGO_URI;
@@ -52,20 +38,3 @@ async function dbConnect() {
 }
 
 export default dbConnect;
-```
-
-3. Create your models and start creating data.
-
-```typescript
-// db/models/User.ts
-
-import { Schema, model, models } from "mongoose";
-
-const UserSchema = new Schema({
-  username: String,
-  age: Number,
-});
-
-
-export default models.User || model("User", UserSchema);
-```

@@ -2,6 +2,15 @@ import { notFound } from "next/navigation";
 import type { IUserCardProps } from "../../types";
 import { getUser, getUsers } from "../_actions/user.actions";
 
+// Next.js will invalidate the cache when a
+// request comes in, at most once every 1 hour
+export const revalidate = 3600
+ 
+// We'll prerender only the params from `generateStaticParams` at build time.
+// If a request comes in for a path that hasn't been generated,
+// Next.js will server-render the page on-demand.
+export const dynamicParams = true // or false, to 404 on unknown paths
+
 export async function generateStaticParams() {
   const users: IUserCardProps[] = await getUsers();
 

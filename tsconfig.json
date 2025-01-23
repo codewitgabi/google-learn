@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/_components"
-  ],
+, "src/db/config.js"  ],
   "exclude": ["node_modules"]
 }
