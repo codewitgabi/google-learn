@@ -1,6 +1,6 @@
 "use server";
 
-import { RegisterFormSchema } from "@/schemas/auth.schemas";
+import { RegisterFormSchema, LoginFormSchema } from "@/schemas/auth.schemas";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -43,4 +43,26 @@ export async function RegisterUserAction(state: unknown, formData: FormData) {
       inputs: responseData,
     };
   }
+}
+
+export async function LoginUserAction(state: unknown, formData: FormData) {
+  const formInputs = Object.fromEntries(formData.entries());
+  const { success, error, data } = LoginFormSchema.safeParse(formInputs);
+
+  if (!success) {
+    return {
+      success: false,
+      message: "Invalid input data",
+      errors: error.flatten().fieldErrors,
+      inputs: formInputs,
+    };
+  }
+
+  // Return safe parsed data
+
+  return {
+    success: true,
+    message: null,
+    inputs: data,
+  };
 }

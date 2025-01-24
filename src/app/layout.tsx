@@ -4,6 +4,7 @@ import "@radix-ui/themes/styles.css";
 import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import { Toaster } from "sonner";
+import AuthSessionProvider from "@/components/AuthSessionProvider";
 
 const poppins = Poppins({
   weight: "400",
@@ -60,9 +61,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
-        <Theme>{children}</Theme>
+        <AuthSessionProvider>
+          <Theme>{children}</Theme>
+        </AuthSessionProvider>
 
-        <Toaster position="top-right" />
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );
