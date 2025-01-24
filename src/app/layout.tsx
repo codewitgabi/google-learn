@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
 import { Theme } from "@radix-ui/themes";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   weight: "400",
@@ -60,6 +61,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <Theme>{children}</Theme>
+
+        <Toaster position="top-right" />
       </body>
     </html>
   );

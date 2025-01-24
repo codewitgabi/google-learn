@@ -7,29 +7,25 @@ const UserSchema = new Schema(
       trim: true,
       minLength: [3, "Username must be at least 3 characters"],
     },
-    fullname: {
+    fullName: {
       type: String,
       trim: true,
       minLength: [3, "Fullname must be at least 3 characters"],
     },
-    city: {
+    lastName: {
       type: String,
       trim: true,
-      minLength: [3, "City must be at least 3 characters"],
+      minLength: [3, "Lastname must be at least 3 characters"],
     },
-    website: {
+    email: {
       type: String,
       trim: true,
+      unique: [true, "User with email already exists"],
     },
-    company: {
+    password: {
       type: String,
-      trim: true,
-    },
-    image: {
-      type: String,
-      trim: true,
-      maxLength: [1024, "Image should not be more than 1024 characters"],
-      required: false
+      minLength: [8, "Password must be at least 8 characters"],
+      select: false,
     },
   },
   { timestamps: true, versionKey: false }
