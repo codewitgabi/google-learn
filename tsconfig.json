@@ -27,7 +27,9 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/_components"
-, "src/db/config.js"  ],
+    "src/app/_components",
+    "src/db/config.js",
+    "src/app/api/auth/[...nextauth]/route.ts"
+  ],
   "exclude": ["node_modules"]
 }

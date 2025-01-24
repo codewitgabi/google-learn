@@ -9,6 +9,8 @@ import AuthSessionProvider from "@/components/AuthSessionProvider";
 const poppins = Poppins({
   weight: "400",
   subsets: ["latin"],
+  style: ["normal"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -59,8 +61,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.className} antialiased`}>
+    <html lang="en" className={`${poppins.className} antialiased`}>
+      <body>
         <AuthSessionProvider>
           <Theme>{children}</Theme>
         </AuthSessionProvider>

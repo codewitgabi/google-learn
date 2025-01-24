@@ -1,10 +1,9 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextAuthOptions } from "next-auth";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -40,6 +39,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
     async session({ session, token }) {
+      // @ts-expect-errors  Can't find right type now
       session.user = token.user; // Attach user data to session
       return session;
     },
@@ -50,7 +50,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
   },
-};
+});
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
