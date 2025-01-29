@@ -1,59 +1,278 @@
 "use client";
 import useAppStore from "@/lib/store";
 import Link from "next/link";
-import { IoArrowBackSharp } from "react-icons/io5";
+import { usePathname } from "next/navigation";
+import {
+  IoArrowBackSharp,
+  IoLogOutOutline,
+  IoPersonOutline,
+  IoShareSocialOutline,
+} from "react-icons/io5";
 import { VscMenu } from "react-icons/vsc";
+import { useSession, signOut } from "next-auth/react";
+import { CiSettings } from "react-icons/ci";
+import { IoMdInformationCircleOutline } from "react-icons/io";
+import { MdOutlineRoute, MdOutlineFeedback } from "react-icons/md";
+import { PiClockCounterClockwise } from "react-icons/pi";
+
+const mobileLinks = [
+  {
+    href: "/",
+    displayName: "Live traffic",
+  },
+  {
+    href: "/trips",
+    displayName: "Trips",
+  },
+  {
+    href: "/reports",
+    displayName: "Reports",
+  },
+  {
+    href: "/community",
+    displayName: "Community",
+  },
+];
 
 function Sidebar() {
   const { toggleNav, navState } = useAppStore((state) => state);
+  const pathname = usePathname();
+  const { status } = useSession();
 
-  return (
-    <aside
-      className={`left-0 bg-sky-blue p-8 fixed top-0 h-dvh overflow-y-auto text-center z-20 flex justify-center ${
-        navState === "closed" ? "w-max max-md:hidden" : "w-[250px] items-center"
-      }`}
-    >
-      <div className={`w-full ${navState === "closed" ? "hidden" : ""}`}>
-        <h4 className="text-blue-dark text-[0.8rem]">Welcome to</h4>
-        <h3 className="text-blue-dark text-2xl font-medium">Traffic Tracker</h3>
-        <p className="text-[0.7rem] opacity-65">Stay ahead of time now!</p>
+  const handleLogout = () => {
+    signOut({ redirect: false });
+  };
 
-        <div className="flex flex-col gap-2 mt-12">
-          <Link
-            href="/auth/register"
-            className="text-[0.75rem] bg-blue-dark hover:bg-opacity-85 transition-all duration-300 text-white py-2 px-6 rounded-md"
-          >
-            Register
-          </Link>
-          <Link
-            href="/auth/login"
-            className="text-[0.75rem] border border-blue-dark hover:bg-blue-dark hover:text-white transition-all duration-300 py-2 px-6 rounded-md"
-          >
-            Login
-          </Link>
-        </div>
-      </div>
-
-      {/* Collapsed sidebar */}
-
-      <div className={`${navState === "open" ? "hidden" : ""}`}>
-        <button onClick={toggleNav}>
-          <VscMenu />
-        </button>
-      </div>
-
-      {/* Close nav arrow button */}
-
-      <button
-        className={`absolute top-[10%] right-4 ${
-          navState === "closed" ? "hidden" : ""
+  if (status === "unauthenticated") {
+    return (
+      <aside
+        className={`left-0 bg-sky-blue p-8 max-md:px-4 fixed top-0 h-dvh overflow-y-auto text-center z-20 flex justify-center ${
+          navState === "closed"
+            ? "w-max max-md:hidden"
+            : "w-[250px] items-center flex-col"
         }`}
-        onClick={toggleNav}
       >
-        <IoArrowBackSharp />
-      </button>
-    </aside>
-  );
+        <div className={`w-full ${navState === "closed" ? "hidden" : ""}`}>
+          <h4 className="text-blue-dark text-[0.8rem]">Welcome to</h4>
+          <h3 className="text-blue-dark text-2xl font-medium">
+            Traffic Tracker
+          </h3>
+          <p className="text-[0.7rem] opacity-65">Stay ahead of time now!</p>
+
+          <div className="flex flex-col gap-2 mt-12">
+            <Link
+              href="/auth/register"
+              className="text-[0.75rem] bg-blue-dark hover:bg-opacity-85 transition-all duration-300 text-white py-2 px-6 rounded-md"
+            >
+              Register
+            </Link>
+            <Link
+              href="/auth/login"
+              className="text-[0.75rem] border border-blue-dark hover:bg-blue-dark hover:text-white transition-all duration-300 py-2 px-6 rounded-md"
+            >
+              Login
+            </Link>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4 items-start mt-12 w-full min-[425px]:hidden">
+          {mobileLinks.map(({ href, displayName }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`${
+                pathname === href
+                  ? "bg-blue-dark text-white"
+                  : "text-gray-700 opacity-90"
+              } py-2 px-4 text-sm w-full rounded-md text-left`}
+            >
+              {displayName}
+            </Link>
+          ))}
+        </div>
+
+        {/* Collapsed sidebar */}
+
+        <div
+          className={`${
+            navState === "open" ? "hidden" : ""
+          } max-[425px]:hidden`}
+        >
+          <button onClick={toggleNav}>
+            <VscMenu />
+          </button>
+        </div>
+
+        {/* Close nav arrow button */}
+
+        <button
+          className={`absolute top-[10%] right-4 ${
+            navState === "closed" ? "hidden" : ""
+          }`}
+          onClick={toggleNav}
+        >
+          <IoArrowBackSharp />
+        </button>
+      </aside>
+    );
+  } else if (status === "authenticated") {
+    return (
+      <aside
+        className={`left-0 bg-sky-blue fixed top-0 h-dvh overflow-y-auto z-20 flex justify-between gap-16 ${
+          navState === "closed"
+            ? "w-max max-md:hidden flex-col"
+            : "w-[250px] flex-col"
+        }`}
+      >
+        <div
+          className={`p-8 max-md:px-4 space-y-20 ${
+            navState === "closed" ? "hidden" : ""
+          }`}
+        >
+          <h1 className="text-center text-blue-dark font-medium">
+            Traffic Tracker
+          </h1>
+
+          <div className="flex flex-col gap-6 items-start opacity-70">
+            <Link href="/" className="flex items-center gap-2 text-sm">
+              <IoPersonOutline className="text-xl" />
+              <span className="">Profile</span>
+            </Link>
+            <Link href="/" className="flex items-center gap-2 text-sm">
+              <PiClockCounterClockwise className="text-xl" />
+              <span className="">Trip History</span>
+            </Link>
+            <Link href="/" className="flex items-center gap-2 text-sm">
+              <MdOutlineRoute className="text-xl" />
+              <span className="">Favorite Routes</span>
+            </Link>
+            <Link href="/" className="flex items-center gap-2 text-sm">
+              <IoMdInformationCircleOutline className="text-xl" />
+              <span className="">Report Happening</span>
+            </Link>
+            <Link href="/" className="flex items-center gap-2 text-sm">
+              <MdOutlineFeedback className="text-xl" />
+              <span className="">Feedback & Rating</span>
+            </Link>
+          </div>
+        </div>
+
+        <div
+          className={`p-8 max-md:px-4 border-t border-opacity-35 border-gray-700 flex flex-col gap-4 items-start ${
+            navState === "closed" ? "hidden" : ""
+          }`}
+        >
+          <Link
+            href=""
+            className="flex items-center gap-2 text-sm text-gray-700 opacity-90"
+          >
+            <CiSettings className="text-2xl" />
+            <span className="">Settings</span>
+          </Link>
+          <Link
+            href=""
+            className="flex items-center gap-3 text-sm text-gray-700 opacity-90"
+          >
+            <IoShareSocialOutline className="text-xl" />
+            <span>Invite</span>
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="text-red-600 flex items-center gap-2 text-sm"
+          >
+            <IoLogOutOutline className="text-2xl" />
+            <span>Logout</span>
+          </button>
+        </div>
+
+        {/* Collapsed sidebar */}
+
+        <div
+          className={`p-8 max-md:px-4 space-y-20 ${
+            navState === "open" && "hidden"
+          }`}
+        >
+          <div>
+            <button onClick={toggleNav}>
+              <VscMenu />
+            </button>
+          </div>
+
+          <div>
+            <div className="flex flex-col gap-6 items-start opacity-70">
+              <Link href="/" className="flex items-center gap-2 text-sm">
+                <IoPersonOutline className="text-xl" />
+              </Link>
+              <Link href="/" className="flex items-center gap-2 text-sm">
+                <PiClockCounterClockwise className="text-xl" />
+              </Link>
+              <Link href="/" className="flex items-center gap-2 text-sm">
+                <MdOutlineRoute className="text-xl" />
+              </Link>
+              <Link href="/" className="flex items-center gap-2 text-sm">
+                <IoMdInformationCircleOutline className="text-xl" />
+              </Link>
+              <Link href="/" className="flex items-center gap-2 text-sm">
+                <MdOutlineFeedback className="text-xl" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className={`${
+            navState === "open" ? "hidden" : ""
+          } max-[425px]:hidden`}
+        >
+          <div
+            className={`p-8 max-md:px-4 border-t border-opacity-35 border-gray-700 flex flex-col gap-4 items-start`}
+          >
+            <Link
+              href=""
+              className="flex items-center gap-2 text-sm text-gray-700 opacity-90"
+            >
+              <CiSettings className="text-2xl" />
+            </Link>
+            <Link
+              href=""
+              className="flex items-center gap-3 text-sm text-gray-700 opacity-90"
+            >
+              <IoShareSocialOutline className="text-xl" />
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="text-red-600 flex items-center gap-2 text-sm"
+            >
+              <IoLogOutOutline className="text-2xl" />
+            </button>
+          </div>
+        </div>
+
+        {/* Close nav arrow button */}
+
+        <button
+          className={`absolute top-[10%] right-4 ${
+            navState === "closed" ? "hidden" : ""
+          }`}
+          onClick={toggleNav}
+        >
+          <IoArrowBackSharp />
+        </button>
+      </aside>
+    );
+  } else {
+    return (
+      <aside
+        className={`left-0 bg-sky-blue p-8 max-md:px-4 fixed top-0 h-dvh overflow-y-auto text-center z-20 flex justify-center ${
+          navState === "closed"
+            ? "w-max max-md:hidden"
+            : "w-[250px] items-center flex-col"
+        }`}
+      >
+        <span className="loading loading-spinner loading-md bg-blue-dark"></span>
+      </aside>
+    );
+  }
 }
 
 export default Sidebar;

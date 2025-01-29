@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useState, useTransition } from "react";
 import { LoginUserAction } from "../_actions/auth.actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,7 @@ function LoginForm() {
   const [state, action, pending] = useActionState(LoginUserAction, undefined);
   const router = useRouter();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     const handler = async () => {
@@ -24,18 +25,20 @@ function LoginForm() {
       } else {
         // handle session login
 
-        const result = await signIn("credentials", {
-          ...state.inputs,
-          redirect: false,
+        startTransition(async () => {
+          const result = await signIn("credentials", {
+            ...state.inputs,
+            redirect: false,
+          });
+
+          if (result?.error) {
+            toast.error(result.error);
+            return;
+          }
+
+          toast.success("Login successful");
+          router.push("/"); // Navigate to homepage
         });
-
-        if (result?.error) {
-          toast.error(result.error);
-          return;
-        }
-
-        toast.success("Login successful");
-        router.push("/"); // Navigate to homepage
       }
     };
 
@@ -117,6 +120,7 @@ function LoginForm() {
             className={`w-full outline-none text-sm p-2 border border-gray-300 focus:border-black rounded-lg ${
               state?.errors?.password ? "border-red-500" : ""
             }`}
+            defaultValue={isPending ? (state?.inputs.password as string) : ""}
             placeholder="Password"
             required
           />
@@ -141,11 +145,11 @@ function LoginForm() {
       {/* End password fieldset */}
 
       <button
-        disabled={pending}
+        disabled={pending || isPending}
         type="submit"
         className="!mt-12 w-full text-sm bg-black text-white py-2 rounded-full hover:bg-black/80 transition-all duration-300 disabled:bg-black/50 disabled:cursor-wait"
       >
-        {pending ? (
+        {pending || isPending ? (
           <span className="loading loading-spinner loading-md"></span>
         ) : (
           <span>Login</span>
