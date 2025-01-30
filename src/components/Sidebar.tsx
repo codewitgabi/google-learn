@@ -14,6 +14,7 @@ import { CiSettings } from "react-icons/ci";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { MdOutlineRoute, MdOutlineFeedback } from "react-icons/md";
 import { PiClockCounterClockwise } from "react-icons/pi";
+import { toast } from "sonner";
 
 const mobileLinks = [
   {
@@ -34,6 +35,34 @@ const mobileLinks = [
   },
 ];
 
+const openAuthenticatedLinks = [
+  {
+    href: "/profile",
+    displayName: "Profile",
+    icon: <IoPersonOutline className="text-xl" />,
+  },
+  {
+    href: "/trip-history",
+    displayName: "Trip History",
+    icon: <PiClockCounterClockwise className="text-xl" />,
+  },
+  {
+    href: "/favorite-routes",
+    displayName: "Favorite Routes",
+    icon: <MdOutlineRoute className="text-xl" />,
+  },
+  {
+    href: "/report-happening",
+    displayName: "Report Happening",
+    icon: <IoMdInformationCircleOutline className="text-xl" />,
+  },
+  {
+    href: "/feedback-and-rating",
+    displayName: "Feedback & Rating",
+    icon: <MdOutlineFeedback className="text-xl" />,
+  },
+];
+
 function Sidebar() {
   const { toggleNav, navState } = useAppStore((state) => state);
   const pathname = usePathname();
@@ -41,6 +70,8 @@ function Sidebar() {
 
   const handleLogout = () => {
     signOut({ redirect: false });
+
+    toast.success("Logout successful");
   };
 
   if (status === "unauthenticated") {
@@ -134,26 +165,20 @@ function Sidebar() {
           </h1>
 
           <div className="flex flex-col gap-6 items-start opacity-70">
-            <Link href="/" className="flex items-center gap-2 text-sm">
-              <IoPersonOutline className="text-xl" />
-              <span className="">Profile</span>
-            </Link>
-            <Link href="/" className="flex items-center gap-2 text-sm">
-              <PiClockCounterClockwise className="text-xl" />
-              <span className="">Trip History</span>
-            </Link>
-            <Link href="/" className="flex items-center gap-2 text-sm">
-              <MdOutlineRoute className="text-xl" />
-              <span className="">Favorite Routes</span>
-            </Link>
-            <Link href="/" className="flex items-center gap-2 text-sm">
-              <IoMdInformationCircleOutline className="text-xl" />
-              <span className="">Report Happening</span>
-            </Link>
-            <Link href="/" className="flex items-center gap-2 text-sm">
-              <MdOutlineFeedback className="text-xl" />
-              <span className="">Feedback & Rating</span>
-            </Link>
+            {openAuthenticatedLinks.map(({ href, displayName, icon }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`flex items-center gap-2 text-sm ${
+                  pathname === href
+                    ? "bg-blue-dark w-full py-2 px-4 rounded-md text-white"
+                    : ""
+                }`}
+              >
+                {icon}
+                <span className="">{displayName}</span>
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -200,7 +225,14 @@ function Sidebar() {
 
           <div>
             <div className="flex flex-col gap-6 items-start opacity-70">
-              <Link href="/" className="flex items-center gap-2 text-sm">
+              <Link
+                href="/profile"
+                className={`flex items-center gap-2 text-sm ${
+                  pathname === "/profile"
+                    ? "text-blue-dark font-bold"
+                    : ""
+                }`}
+              >
                 <IoPersonOutline className="text-xl" />
               </Link>
               <Link href="/" className="flex items-center gap-2 text-sm">
