@@ -3,13 +3,26 @@ import Sidebar from "@/components/Sidebar";
 import AuthLayout from "@/components/AuthLayout";
 import EditProfileForm from "./_components/EditProfileForm";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { getUserDetail } from "@/actions/user.actions";
+import authService from "@/services/auth.service";
 
 export const metadata: Metadata = {
   title: "Edit profile",
   description: "Edit profile",
 };
 
-function ProfilePage() {
+async function ProfilePage() {
+  const { hasUserId, userId } = await authService.getUserId();
+
+  if (!hasUserId) {
+    redirect("/auth/login");
+  }
+
+  // Fetch user detail
+
+  const user = await getUserDetail(userId as string);
+
   return (
     <AuthLayout>
       {/* Sidebar */}
@@ -17,7 +30,7 @@ function ProfilePage() {
       <Sidebar />
 
       <MainContent>
-        <EditProfileForm />
+        <EditProfileForm user={user} />
       </MainContent>
     </AuthLayout>
   );

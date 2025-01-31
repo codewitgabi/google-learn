@@ -5,6 +5,7 @@ import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import { Toaster } from "sonner";
 import AuthSessionProvider from "@/components/AuthSessionProvider";
+import "@xyflow/react/dist/style.css";
 
 const poppins = Poppins({
   weight: "400",

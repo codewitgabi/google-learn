@@ -1,3 +1,4 @@
+import authService from "@/services/auth.service";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -23,7 +24,9 @@ const handler = NextAuth({
         const responseData = await response.json();
 
         if (response.ok) {
-          return responseData.data.user;
+          const user = responseData.data.user;
+          await authService.setUserId(user._id);
+          return user;
         }
 
         throw new Error(responseData.message);
@@ -39,10 +42,10 @@ const handler = NextAuth({
   secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
     async session({ session, token }) {
-      // @ts-expect-errors  Can't find right type now
       session.user = token.user; // Attach user data to session
       return session;
     },
+
     async jwt({ token, user }) {
       if (user) {
         token.user = user; // Add user data to token

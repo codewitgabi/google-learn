@@ -3,27 +3,28 @@
 import Image from "next/image";
 import DefaultProfilePicture from "../../../../public/default-profile-avatar.webp";
 import { useState } from "react";
+import { IUser } from "@/types/user.types";
 
-function EditProfileForm() {
+function EditProfileForm({ user }: { user: Partial<IUser> }) {
   const [editable, setEditable] = useState<boolean>(false);
 
   return (
     <form action="">
       <div className="w-[800px] mx-auto max-[1110px]:w-full">
-        <div className="flex items-center justify-between gap-6">
+        <div className="flex justify-between gap-6">
           <div className="flex items-center gap-3">
             <Image
-              src={DefaultProfilePicture}
+              src={user?.image || DefaultProfilePicture}
               alt="user profile picture"
               className="w-[60px] h-[60px] rounded-full"
             />
 
             <div className="space-y-1">
               <h2 className="text-sm text-blue-dark font-medium">
-                Jide Peters
+                {user?.firstName} {user?.lastName}
               </h2>
               <small className="text-gray-700 opacity-60 text-[0.75rem]">
-                Date Joined: 1st May, 2023
+                Date Joined: {user?.createdAt}
               </small>
             </div>
           </div>
@@ -51,7 +52,7 @@ function EditProfileForm() {
                 type="text"
                 name="phone"
                 id="phone"
-                defaultValue={"+2349020617734"}
+                defaultValue={user?.phone || ""}
                 className="outline-none text-sm text-right font-medium opacity-80"
                 readOnly={!editable}
               />
@@ -67,7 +68,7 @@ function EditProfileForm() {
                 type="email"
                 name="email"
                 id="email"
-                defaultValue={"codewitgabi222@gmail.com"}
+                defaultValue={user?.email || ""}
                 className="outline-none text-sm text-right font-medium opacity-80"
                 readOnly={!editable}
               />
@@ -83,7 +84,7 @@ function EditProfileForm() {
                 type="text"
                 name="address"
                 id="address"
-                defaultValue={"No. 23, Old Airport Offa rd."}
+                defaultValue={user?.address || ""}
                 className="outline-none text-sm text-right font-medium opacity-80"
                 readOnly={!editable}
               />
@@ -99,7 +100,7 @@ function EditProfileForm() {
                 type="text"
                 name="gender"
                 id="gender"
-                defaultValue={"Male"}
+                defaultValue={user?.gender || ""}
                 className="outline-none text-sm text-right font-medium opacity-80"
                 readOnly={!editable}
               />
@@ -115,7 +116,7 @@ function EditProfileForm() {
                 type="text"
                 name="nationality"
                 id="nationality"
-                defaultValue={"Nigeria"}
+                defaultValue={user?.nationality || ""}
                 className="outline-none text-sm text-right font-medium opacity-80"
                 readOnly={!editable}
               />
@@ -145,7 +146,7 @@ function EditProfileForm() {
                 type="text"
                 name="nearest-location"
                 id="nearest-location"
-                defaultValue={"FESTAC"}
+                defaultValue={user?.nearestLocation || ""}
                 className="outline-none text-sm text-right font-medium opacity-80"
                 readOnly={!editable}
               />

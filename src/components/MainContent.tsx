@@ -14,7 +14,7 @@ function MainContent({ children }: IMainContentProps) {
     <main
       className={`${
         navState === "closed" ? "ml-0" : "ml-[250px]"
-      } min-h-dvh relative max-[905px]:ml-0 transition-all duration-300`}
+      } min-h-dvh relative max-[905px]:ml-0`}
     >
       <Navbar />
 
