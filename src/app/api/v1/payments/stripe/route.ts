@@ -1,9 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export async function POST() {
+export async function POST(req: NextRequest) {
+  const host = req.headers.get("host");
+  const protocol = req.headers.get("x-forwarded-proto") || "http";
+  const origin = `${protocol}://${host}`;
+
   try {
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
@@ -23,11 +27,9 @@ export async function POST() {
         },
       ],
       mode: "payment",
-      return_url: `http://localhost:3000`,
+      return_url: origin,
       automatic_tax: { enabled: false },
     });
-
-    console.log({ session });
 
     return NextResponse.json({
       success: true,

@@ -36,8 +36,6 @@ function LoginForm() {
             return;
           }
 
-          console.log(result)
-
           toast.success("Login successful");
           router.push("/"); // Navigate to homepage
         });

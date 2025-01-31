@@ -17,7 +17,6 @@ export default function StripeCheckoutPage() {
     if (!response.ok) {
       console.error(data);
     } else {
-      console.log({ data });
       return data.data.clientSecret;
     }
   }, []);
