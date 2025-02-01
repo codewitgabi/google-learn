@@ -2,8 +2,9 @@ import AuthLayout from "@/components/AuthLayout";
 import MainContent from "@/components/MainContent";
 import Sidebar from "@/components/Sidebar";
 import Link from "next/link";
-import { MdSecurity, MdOutlineDelete } from "react-icons/md";
+import { MdSecurity } from "react-icons/md";
 import { GoChevronRight } from "react-icons/go";
+import DeleteAccountButton from "../_components/DeleteAccountButton";
 
 function SettingsPage() {
   return (
@@ -28,10 +29,7 @@ function SettingsPage() {
 
           {/* Delete account button */}
 
-          <button className="flex items-center gap-2 text-red-500 font-medium">
-            <MdOutlineDelete className="text-2xl" />
-            <span className="text-sm">Delete account</span>
-          </button>
+          <DeleteAccountButton />
         </div>
       </MainContent>
     </AuthLayout>
