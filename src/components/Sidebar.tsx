@@ -204,7 +204,7 @@ function Sidebar() {
           }`}
         >
           <Link
-            href=""
+            href="/profile/settings"
             className="flex items-center gap-2 text-sm text-gray-700 opacity-90"
           >
             <CiSettings className="text-2xl" />
@@ -274,7 +274,7 @@ function Sidebar() {
             className={`p-8 max-md:px-4 border-t border-opacity-35 border-gray-700 flex flex-col gap-4 items-start`}
           >
             <Link
-              href=""
+              href="/profile/settings"
               className="flex items-center gap-2 text-sm text-gray-700 opacity-90"
             >
               <CiSettings className="text-2xl" />
