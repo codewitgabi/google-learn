@@ -27,7 +27,7 @@ function AuthenticatedSidebar({ navState, pathname, toggleNav }: SidebarProps) {
     <aside
       className={`left-0 bg-sky-blue fixed top-0 h-dvh overflow-y-auto overflow-x-hidden z-20 flex justify-between gap-16 transition-all duration-300 ${
         navState === "closed"
-          ? "w-20 max-md:hidden flex-col"
+          ? "w-max max-md:hidden flex-col"
           : "w-[250px] flex-col"
       }`}
     >
