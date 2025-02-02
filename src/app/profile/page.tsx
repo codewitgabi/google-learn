@@ -1,5 +1,5 @@
 import MainContent from "@/components/MainContent";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/sidebar/Sidebar";
 import AuthLayout from "@/components/AuthLayout";
 import EditProfileForm from "./_components/EditProfileForm";
 import { Metadata } from "next";

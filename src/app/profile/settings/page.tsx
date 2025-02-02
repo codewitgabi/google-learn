@@ -1,6 +1,6 @@
 import AuthLayout from "@/components/AuthLayout";
 import MainContent from "@/components/MainContent";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/sidebar/Sidebar";
 import Link from "next/link";
 import { MdSecurity } from "react-icons/md";
 import { GoChevronRight } from "react-icons/go";

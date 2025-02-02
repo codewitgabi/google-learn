@@ -1,6 +1,6 @@
 import AuthLayout from "@/components/AuthLayout";
 import MainContent from "@/components/MainContent";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/sidebar/Sidebar";
 import ChangePasswordForm from "../../_components/ChangePasswordForm";
 
 function ChangePasswordPage() {

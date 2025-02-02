@@ -1,5 +1,5 @@
 import MainContent from "@/components/MainContent";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/sidebar/Sidebar";
 import AccidentReportedImage from "../../public/accidents-reported.png";
 import WeatherImage from "../../public/clear-day.png";
 import TrafficSpeedImage from "../../public/traffic-speed.png";
@@ -29,6 +29,7 @@ function Home() {
                     height={25}
                     width={25}
                     alt="accident-report-image"
+                    className=""
                   />
                   <span className="text-[0.75rem] text-blue-dark font-medium">
                     Accidents Reported

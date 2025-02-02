@@ -3,36 +3,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CiSearch } from "react-icons/ci";
 import MobileNavbar from "./MobileNavbar";
-
-const navLinks = [
-  {
-    pathname: "/",
-    displayName: "Live traffic",
-  },
-  {
-    pathname: "/trip",
-    displayName: "Trip",
-  },
-  {
-    pathname: "/reports",
-    displayName: "Reports",
-  },
-  {
-    pathname: "/community",
-    displayName: "Community",
-  },
-  {
-    pathname: "/emergency",
-    displayName: "Emergency",
-  },
-];
+import { navLinks } from "@/lib/data";
+import useAppStore from "@/lib/store";
 
 function Navbar() {
   const currentRoute = usePathname();
+  const { navState } = useAppStore((state) => state);
 
   return (
     <header className="border-b border-gray-300 shadow-sm sticky top-0 right-0 z-10 bg-white">
-      <nav className="w-[945px] mx-auto max-[1230px]:w-[initial] max-[1230px]:mx-4 py-4 flex items-center justify-between max-[905px]:hidden">
+      <nav
+        className={`w-[945px] mx-auto py-4 flex items-center justify-between max-md:hidden ${
+          navState === "open"
+            ? "max-[1241px]:w-[initial] max-[1241px]:mx-4"
+            : "max-[1050px]:w-[initial] max-[1050px]:mx-4"
+        }`}
+      >
         {/* Navigation links */}
 
         <ul className="flex items-center gap-4">

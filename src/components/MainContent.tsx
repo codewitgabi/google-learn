@@ -12,13 +12,15 @@ function MainContent({ children }: IMainContentProps) {
 
   return (
     <main
-      className={`${
-        navState === "closed" ? "ml-0" : "ml-[250px]"
-      } min-h-dvh relative max-[905px]:ml-0`}
+      className={`min-h-dvh relative transition-all duration-300 ${
+        navState === "closed" ? "ml-16 max-md:ml-0" : "ml-[250px] max-md:ml-0"
+      }`}
     >
       <Navbar />
 
-      <div className="w-[945px] mx-auto max-[1230px]:w-[initial] max-[1230px]:mx-4 my-4">
+      <div
+        className={`w-[945px] mx-auto my-4 max-md:w-[initial] max-md:mx-4 overflow-hidden`}
+      >
         {children}
       </div>
     </main>
