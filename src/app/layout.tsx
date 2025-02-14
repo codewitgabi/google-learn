@@ -63,6 +63,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.className} antialiased`}>
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-3282358136257954" />
+      </head>
+      
       <body>
         <AuthSessionProvider>
           <Theme>{children}</Theme>
