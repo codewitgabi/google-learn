@@ -65,8 +65,13 @@ export default function RootLayout({
     <html lang="en" className={`${poppins.className} antialiased`}>
       <head>
         <meta name="google-adsense-account" content="ca-pub-3282358136257954" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3282358136257954"
+          crossOrigin="anonymous"
+        ></script>
       </head>
-      
+
       <body>
         <AuthSessionProvider>
           <Theme>{children}</Theme>
